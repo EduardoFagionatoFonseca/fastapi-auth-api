@@ -1,0 +1,12 @@
+from fastapi import APIRouter, Depends
+from typing import Annotated
+from app.models.user import User
+from app.dependencies import get_user_repo
+
+from app.database.users import UserRepo
+
+user_router = APIRouter(prefix="/users")
+
+@user_router.get("/", response_model=list[User])
+async def get_users(user_repo: Annotated[UserRepo, Depends(get_user_repo)]):
+   return await user_repo.list_users()
