@@ -6,12 +6,15 @@ class UserRepo:
       self.db = database
 
    async def list_users(self) -> list[User]:
+      print("WORKING LIST USERSSSADASDAS")
       with self.db.connect() as conn:
          cursor = conn.cursor()
-         cursor.execute("SELECT id, username, password, email FROM users")
+         cursor.execute("SELECT * FROM users")
          data = cursor.fetchall()
-         users = [
-            User(id_= user[0], username=user[1], password=user[2], email=user[3]) for user in data
-            ]
+         users: list[User] = []
+         for user in data:
+            print(user)
+            users.append(User(id_=1, username="edu",password='24',email='edasd'))
          print(users)
          return users
+   

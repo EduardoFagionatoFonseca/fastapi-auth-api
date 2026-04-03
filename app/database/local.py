@@ -13,7 +13,15 @@ class LocalDatabase():
          yield conn
       except Exception as e:
          conn.rollback()
-         print(e)
+         print(""""
+               
+               
+               
+               
+               
+               
+               {e}
+               """)
       finally:
          conn.close()
 
