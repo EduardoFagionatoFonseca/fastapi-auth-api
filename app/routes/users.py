@@ -15,3 +15,7 @@ async def get_users(user_repo: Annotated[UserRepo, Depends(get_user_repo)]):
 @router.post("/")
 async def create_users(user: User, user_repo: Annotated[UserRepo, Depends(get_user_repo)]):
    return await user_repo.create_user(user)
+
+@router.post("/login")
+async def authenticate_user(user_data: User, user_repo: Annotated[UserRepo, Depends(get_user_repo)]):
+   return await user_repo.authenticate_user(user_data)

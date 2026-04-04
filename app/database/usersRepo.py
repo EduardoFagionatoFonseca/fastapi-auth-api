@@ -16,7 +16,7 @@ class UserRepo:
             users.append(UserDTO(id=user[0], username=user[1], email=user[2]))
          return users
       
-   async def create_user(self, data) -> UserDTO:
+   async def create_user(self, data: User) -> UserDTO:
       with self.db.connect() as conn:
          cursor = conn.cursor()
          cursor.execute(
@@ -28,3 +28,16 @@ class UserRepo:
          fetched = cursor.fetchone()
          return UserDTO(id=fetched[0], username=fetched[1], email=fetched[2])
       # TODO remove id from insert and make it automatic as well as implement DTOS over the whole project.
+
+   async def  authenticate_user(self, data: User):
+      with self.db.connect() as conn:
+         cursor = conn.cursor()
+         cursor.execute("SELECT username, password, email FROM users WHERE username LIKE (?)", (data.username,))
+         fetched = cursor.fetchone()
+         db_user =  User(username=fetched[0], password=fetched[1], email=fetched[2])
+         if data.password != db_user.password:
+            return {"msg": "wrong password"}
+         if data.email != db_user.email:
+            return {"msg": "wrong email"}
+         else:
+            return {"msg": "Logged in sucessfully!"}

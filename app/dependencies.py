@@ -1,7 +1,7 @@
 from fastapi import Depends
 from typing import Annotated
 from  app.database.local import LocalDatabase
-from app.database.users import UserRepo
+from app.database.usersRepo import UserRepo
 
 database = LocalDatabase()
 
