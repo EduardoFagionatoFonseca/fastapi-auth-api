@@ -13,15 +13,7 @@ class LocalDatabase():
          yield conn
       except Exception as e:
          conn.rollback()
-         print(""""
-               
-               
-               
-               
-               
-               
-               {e}
-               """)
+         print(e)
       finally:
          conn.close()
 
@@ -29,8 +21,8 @@ class LocalDatabase():
       with self.connect() as conn:
          cursor = conn.cursor()
          cursor.execute("""CREATE TABLE IF NOT EXISTS users (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        id_ INTEGER PRIMARY KEY AUTOINCREMENT,
                         username TEXT UNIQUE NOT NULL,
                         password TEXT NOT NULL,
-                        phone TEXT NOT NULL)""")
+                        email TEXT NOT NULL)""")
          conn.commit()
