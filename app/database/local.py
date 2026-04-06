@@ -2,7 +2,7 @@ import sqlite3
 from contextlib import contextmanager
 
 class LocalDatabase():
-   def __init__(self, file_name='movex.db'):
+   def __init__(self, file_name='auth.db'):
       self.file_name = file_name
       self.init_db()
 
